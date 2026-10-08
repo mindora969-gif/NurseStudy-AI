@@ -390,10 +390,7 @@ async function callTool(name){
       MCP initialization notification.
       Empty response is normal.
     */
-    await mcp(
-      "notifications/initialized",
-      {}
-    );
+    
 
     const args =
       name === "generate_quiz"
