@@ -420,6 +420,16 @@ async function callTool(name){
 
     result.textContent =
       text || "No text result.";
+    if ("speechSynthesis" in window && text) {
+  window.speechSynthesis.cancel();
+
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = "en-IN";
+  utterance.rate = 0.95;
+  utterance.pitch = 1;
+
+  window.speechSynthesis.speak(utterance);
+}
 
     status.textContent =
       "Done — " +
