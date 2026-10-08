@@ -3,6 +3,8 @@ import cors from "cors";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { z } from "zod";
+import { Client } from "@modelcontextprotocol/sdk/client/index.js";
+import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -118,7 +120,88 @@ app.post("/mcp", async (req, res) => {
     }
   }
 });
+app.post("/demo", async (req, res) => {
+  const body = req.body || {};
 
+  if (body.method === "initialize") {
+    return res.json({
+      jsonrpc: "2.0",
+      id: body.id,
+      result: {
+        protocolVersion: "2025-11-25",
+        capabilities: { tools: {} },
+        serverInfo: {
+          name: "nursestudy-ai",
+          version: "1.0.0"
+        }
+      }
+    });
+  }
+
+  if (body.method === "notifications/initialized") {
+    return res.status(202).end();
+  }
+
+  if (body.method !== "tools/call") {
+    return res.status(400).json({
+      jsonrpc: "2.0",
+      id: body.id,
+      error: {
+        code: -32601,
+        message: "Method not found"
+      }
+    });
+  }
+
+  let server;
+  let client;
+
+  try {
+    const [clientTransport, serverTransport] =
+      InMemoryTransport.createLinkedPair();
+
+    server = makeServer();
+
+    client = new Client({
+      name: "nursestudy-demo-client",
+      version: "1.0.0"
+    });
+
+    await server.connect(serverTransport);
+    await client.connect(clientTransport);
+
+    const result = await client.callTool({
+      name: body.params?.name,
+      arguments: body.params?.arguments || {}
+    });
+
+    await client.close();
+    await server.close();
+
+    return res.json({
+      jsonrpc: "2.0",
+      id: body.id,
+      result
+    });
+
+  } catch (error) {
+    console.error("Demo MCP error:", error);
+
+    try {
+      await client?.close();
+      await server?.close();
+    } catch {}
+
+    return res.status(500).json({
+      jsonrpc: "2.0",
+      id: body.id,
+      error: {
+        code: -32603,
+        message: error.message || "Internal error"
+      }
+    });
+  }
+});
 app.get("/health", (_req, res) => {
   res.json({ ok: true, project: "NurseStudy AI", mcp: "/mcp" });
 });
