@@ -1,49 +1,84 @@
-# NurseStudy AI — Amazon Developer Hackathon Prototype
+# 🩺 NurseStudy AI
 
-## What this is
-A voice-first nursing study assistant with a web-based Alexa+ simulated experience.
+### Voice-first AI study assistant for nursing students
 
-The UI acts as a simple MCP client and calls a self-hosted MCP server over Streamable HTTP. The server exposes three study tools:
-- `create_study_plan`
-- `generate_quiz`
-- `explain_topic`
+NurseStudy AI is a voice-first web study assistant designed to help nursing students learn, revise, practice, and understand topics through a simple conversational experience.
 
-The current responses are deterministic demo logic so the project can run without an API key. An AI model can be connected later inside the tool handlers.
+## 🚀 Live Demo
 
-## Requirements
-- Node.js 20+
-- npm
+https://ai-k5gw.onrender.com
 
-## Run
-```bash
-npm install
-npm start
-```
+## ✨ Features
 
-Open:
-http://localhost:3000
+- 🎤 Voice input for study topics
+- 🔊 Voice output for assistant responses
+- 📚 7-day personalized study plan generation
+- 🧠 Quiz generation for practice
+- 💡 Simple topic explanations
+- 🛠️ MCP-powered tool interaction
+- 🌐 Deployed web application
+- 📱 Mobile-friendly interface
 
-Health check:
-http://localhost:3000/health
+## 🛠️ MCP Tools
 
-MCP endpoint:
-http://localhost:3000/mcp
+The application exposes three study tools:
 
-## Hackathon fit
-The Amazon hackathon's Alexa+ track allows a simulated Alexa+ web experience. The official FAQ says participants do not get the gated Alexa+ add-on tools and can instead demo a self-hosted MCP server through their own web front end. The rules require the submitted repository to contain the simulation source code and the demo to show it working.
+### `create_study_plan`
+Creates a structured 7-day study plan for a nursing topic.
 
-This project therefore demonstrates:
-1. a web-based conversational/voice study experience;
-2. a self-hosted MCP server;
-3. MCP `initialize`, `tools/list`/`tools/call` compatible interaction using the 2025-11-25 protocol family;
-4. a clear nursing-student use case.
+### `generate_quiz`
+Generates practice questions based on the selected topic.
 
-## Important
-This is an educational study prototype, not a medical diagnostic or treatment tool.
+### `explain_topic`
+Explains a nursing topic in simple and easy-to-understand language.
 
-## Next improvements
-- Connect a real LLM/AI provider to the MCP tools.
-- Add persistent progress tracking.
-- Add quiz scoring and adaptive revision.
-- Add a proper voice response/TTS layer.
-- Deploy the MCP server and record a <3 minute English demo video.
+## 🔄 How It Works
+
+```text
+Student
+   ↓
+Voice or Text Input
+   ↓
+NurseStudy AI Web App
+   ↓
+MCP Tool Call
+   ↓
+Study Tool
+   ↓
+Learning Result
+   ↓
+Text + Voice Response
+🧩 Technology
+HTML / CSS / JavaScript
+Node.js
+Express
+Model Context Protocol (MCP)
+Streamable HTTP
+MCP Client / Server architecture
+Browser Speech Recognition
+Browser Speech Synthesis
+Render deployment
+🎯 Problem
+Nursing students often need quick explanations, structured revision plans, and practice questions while studying.
+NurseStudy AI combines these common study needs into one simple voice-first learning experience.
+💡 Hackathon Value
+This project demonstrates how MCP can connect a conversational web interface with specialized study tools.
+Instead of building one large monolithic assistant, separate MCP tools handle:
+Study planning
+Quiz generation
+Topic explanation
+This makes the system modular and easy to extend.
+🎤 Voice-first Experience
+Students can speak a topic such as:
+"Human heart"
+The application converts the voice into text, sends the request to the appropriate study tool, and can read the result back using speech synthesis.
+🔮 Future Improvements
+Connect an advanced LLM/AI provider
+Student progress tracking
+Adaptive quizzes
+Spaced-repetition revision
+Personalized learning history
+More nursing-specific study tools
+⚠️ Disclaimer
+NurseStudy AI is an educational study prototype for nursing students.
+It is not a medical diagnostic or treatment tool.
