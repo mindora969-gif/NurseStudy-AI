@@ -230,7 +230,10 @@ footer{
         Explain Simply
       </button>
     </div>
-
+    
+<button class="secondary" onclick="speakResult()">
+  🔊 Read Answer
+</button>
     <div id="status" class="status">
       Ready. The web app will call the MCP server tools.
     </div>
@@ -270,7 +273,7 @@ footer{
 
 <script>
 
-const endpoint = "/mcp";
+const endpoint = "/demo";
 let nextId = 1;
 
 async function mcp(method, params){
