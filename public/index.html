@@ -4,35 +4,486 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>NurseStudy AI — Alexa+ Simulation</title>
+
 <style>
-:root{--ink:#172033;--muted:#64748b;--card:#fff;--bg:#f4f7fb;--brand:#173b67;--accent:#00a8c6;--line:#dbe3ee}
-*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--ink)}
-header{background:linear-gradient(135deg,#122f52,#1c5a82);color:#fff;padding:22px 18px}
-.wrap{max-width:900px;margin:auto;padding:0 16px}header .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px}
-h1{margin:0;font-size:28px}.sub{margin:5px 0 0;opacity:.88}.badge{padding:8px 11px;border:1px solid #ffffff55;border-radius:999px;font-size:12px}
-main{padding:20px 0 50px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin:14px 0;box-shadow:0 5px 20px #173b6710}
-.row{display:flex;gap:10px;flex-wrap:wrap}.grow{flex:1;min-width:220px}
-label{font-weight:700;display:block;margin-bottom:8px}input{width:100%;padding:13px;border:1px solid #cbd5e1;border-radius:11px;font-size:16px}
-button{border:0;border-radius:11px;padding:12px 15px;background:var(--brand);color:white;font-weight:700;cursor:pointer}
-button.secondary{background:#e8eef6;color:var(--brand)}button.accent{background:var(--accent)}
-.status{font-size:13px;color:var(--muted);margin-top:10px}.result{white-space:pre-wrap;line-height:1.55;background:#f8fafc;border:1px solid var(--line);border-radius:13px;padding:16px;margin-top:14px}
-.tools{display:flex;gap:8px;flex-wrap:wrap}.tool{background:#edf7ff;border:1px solid #cce9f5;color:#13506d;border-radius:999px;padding:7px 10px;font-size:13px}
-.mic{font-size:20px}.log{font-family:monospace;font-size:12px;white-space:pre-wrap;background:#0d1726;color:#d9e7f5;border-radius:12px;padding:13px;min-height:70px}
-footer{text-align:center;color:var(--muted);font-size:12px;padding:10px 0}
+:root{
+  --ink:#172033;
+  --muted:#64748b;
+  --card:#fff;
+  --bg:#f4f7fb;
+  --brand:#173b67;
+  --accent:#00a8c6;
+  --line:#dbe3ee;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+}
+
+header{
+  background:linear-gradient(135deg,#122f52,#1c5a82);
+  color:white;
+  padding:22px 18px;
+}
+
+.wrap{
+  max-width:900px;
+  margin:auto;
+  padding:0 16px;
+}
+
+header .wrap{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+}
+
+h1{
+  margin:0;
+  font-size:28px;
+}
+
+.sub{
+  margin:5px 0 0;
+  opacity:.88;
+}
+
+.badge{
+  padding:8px 11px;
+  border:1px solid #ffffff55;
+  border-radius:999px;
+  font-size:12px;
+}
+
+main{
+  padding:20px 0 50px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:20px;
+  margin:14px 0;
+  box-shadow:0 5px 20px #173b6710;
+}
+
+.row{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.grow{
+  flex:1;
+  min-width:220px;
+}
+
+label{
+  font-weight:700;
+  display:block;
+  margin-bottom:8px;
+}
+
+input{
+  width:100%;
+  padding:13px;
+  border:1px solid #cbd5e1;
+  border-radius:11px;
+  font-size:16px;
+}
+
+button{
+  border:0;
+  border-radius:11px;
+  padding:12px 15px;
+  background:var(--brand);
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+}
+
+button.secondary{
+  background:#e8eef6;
+  color:var(--brand);
+}
+
+button.accent{
+  background:var(--accent);
+}
+
+.status{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:10px;
+}
+
+.result{
+  white-space:pre-wrap;
+  line-height:1.55;
+  background:#f8fafc;
+  border:1px solid var(--line);
+  border-radius:13px;
+  padding:16px;
+  margin-top:14px;
+  min-height:80px;
+}
+
+.tools{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.tool{
+  background:#edf7ff;
+  border:1px solid #cce9f5;
+  color:#13506d;
+  border-radius:999px;
+  padding:7px 10px;
+  font-size:13px;
+}
+
+.log{
+  font-family:monospace;
+  font-size:12px;
+  white-space:pre-wrap;
+  background:#0d1726;
+  color:#d9e7f5;
+  border-radius:12px;
+  padding:13px;
+  min-height:70px;
+  overflow:auto;
+}
+
+footer{
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+  padding:10px 0;
+}
+
+@media(max-width:600px){
+  header .wrap{
+    display:block;
+  }
+
+  .badge{
+    display:inline-block;
+    margin-top:12px;
+  }
+
+  button{
+    width:100%;
+  }
+}
 </style>
 </head>
+
 <body>
-<header><div class="wrap">
-<div><h1>🎓 NurseStudy AI</h1><p class="sub">Voice-first study assistant for nursing students</p></div>
-<div class="badge">Alexa+ simulated experience</div>
-</div></header>
+
+<header>
+  <div class="wrap">
+    <div>
+      <h1>🎓 NurseStudy AI</h1>
+      <p class="sub">Voice-first study assistant for nursing students</p>
+    </div>
+    <div class="badge">Alexa+ simulated experience</div>
+  </div>
+</header>
+
 <main class="wrap">
-<div class="card">
-<label for="topic">What do you want to study?</label>
-<div class="row">
-<div class="grow"><input id="topic" value="Anatomy" placeholder="e.g. Anatomy"></div>
-<button class="accent mic" onclick="speakInput()">🎤 Speak</button>
-</div>
-<div class="row">
-<button onclick="callTool('create_study_plan')">Create 7-Day Plan</button>
-<button class="secondary" onclick
+
+  <div class="card">
+    <label for="topic">What do you want to study?</label>
+
+    <div class="row">
+      <div class="grow">
+        <input
+          id="topic"
+          value="Anatomy"
+          placeholder="e.g. Anatomy"
+        >
+      </div>
+
+      <button class="accent" onclick="speakInput()">
+        🎤 Speak
+      </button>
+    </div>
+
+    <div class="row" style="margin-top:12px">
+      <button onclick="callTool('create_study_plan')">
+        Create 7-Day Plan
+      </button>
+
+      <button class="secondary" onclick="callTool('generate_quiz')">
+        Generate Quiz
+      </button>
+
+      <button class="secondary" onclick="callTool('explain_topic')">
+        Explain Simply
+      </button>
+    </div>
+
+    <div id="status" class="status">
+      Ready. The web app will call the MCP server tools.
+    </div>
+  </div>
+
+  <div class="card">
+    <strong>MCP Tools</strong>
+
+    <div class="tools" style="margin-top:10px">
+      <span class="tool">create_study_plan</span>
+      <span class="tool">generate_quiz</span>
+      <span class="tool">explain_topic</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <strong>Assistant Result</strong>
+
+    <div id="result" class="result">
+      Ask for a plan, quiz, or explanation.
+    </div>
+  </div>
+
+  <div class="card">
+    <strong>MCP Request Log</strong>
+
+    <div id="log" class="log">
+      Waiting for a tool call…
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  NurseStudy AI • Hackathon prototype • Educational use only, not medical advice.
+</footer>
+
+<script>
+
+const endpoint = "/mcp";
+let nextId = 1;
+
+async function mcp(method, params){
+
+  const id = nextId++;
+
+  const body = {
+    jsonrpc:"2.0",
+    id:id,
+    method:method,
+    params:params
+  };
+
+  document.getElementById("log").textContent =
+    "POST /mcp\n" +
+    method +
+    "\n" +
+    JSON.stringify(params,null,2);
+
+  const response = await fetch(endpoint,{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json",
+      "Accept":"application/json, text/event-stream"
+    },
+    body:JSON.stringify(body)
+  });
+
+  const text = await response.text();
+
+  /*
+    MCP notifications can return an empty response.
+    Do not try to JSON.parse an empty response.
+  */
+  if(!text.trim()){
+    return null;
+  }
+
+  let data;
+
+  try{
+    data = JSON.parse(text);
+  }catch(error){
+
+    /*
+      Some MCP responses can arrive as SSE.
+      Try to read the data: line.
+    */
+    const dataLine = text
+      .split("\n")
+      .find(line => line.trim().startsWith("data:"));
+
+    if(dataLine){
+
+      try{
+        data = JSON.parse(
+          dataLine.replace(/^data:\s*/,"").trim()
+        );
+      }catch(e){
+        throw new Error(
+          "Could not read MCP response."
+        );
+      }
+
+    }else{
+
+      throw new Error(
+        "MCP response was not JSON: " +
+        text.slice(0,200)
+      );
+    }
+  }
+
+  if(data.error){
+    throw new Error(
+      data.error.message || "MCP error"
+    );
+  }
+
+  return data.result;
+}
+
+
+async function callTool(name){
+
+  const topic =
+    document.getElementById("topic").value.trim()
+    || "Nursing";
+
+  const status =
+    document.getElementById("status");
+
+  const result =
+    document.getElementById("result");
+
+  status.textContent =
+    "Connecting to MCP server…";
+
+  result.textContent =
+    "Working…";
+
+  try{
+
+    await mcp(
+      "initialize",
+      {
+        protocolVersion:"2025-11-25",
+        capabilities:{},
+        clientInfo:{
+          name:"NurseStudy Web Simulator",
+          version:"1.0.0"
+        }
+      }
+    );
+
+    /*
+      MCP initialization notification.
+      Empty response is normal.
+    */
+    await mcp(
+      "notifications/initialized",
+      {}
+    );
+
+    const args =
+      name === "generate_quiz"
+      ? {
+          topic:topic,
+          count:5
+        }
+      : {
+          topic:topic
+        };
+
+    const output =
+      await mcp(
+        "tools/call",
+        {
+          name:name,
+          arguments:args
+        }
+      );
+
+    const text =
+      (output && output.content
+        ? output.content
+            .filter(x => x.type === "text")
+            .map(x => x.text)
+            .join("\n")
+        : "");
+
+    result.textContent =
+      text || "No text result.";
+
+    status.textContent =
+      "Done — " +
+      name +
+      " completed through MCP.";
+
+  }catch(error){
+
+    status.textContent =
+      "MCP request failed.";
+
+    result.textContent =
+      error.message ||
+      "Unknown error";
+
+  }
+}
+
+
+function speakInput(){
+
+  const SpeechRecognition =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
+
+  if(!SpeechRecognition){
+
+    document.getElementById("status").textContent =
+      "Voice input is not supported in this browser.";
+
+    return;
+  }
+
+  const recognition =
+    new SpeechRecognition();
+
+  recognition.lang = "en-IN";
+
+  recognition.start();
+
+  document.getElementById("status").textContent =
+    "Listening…";
+
+  recognition.onresult = function(event){
+
+    document.getElementById("topic").value =
+      event.results[0][0].transcript;
+
+    document.getElementById("status").textContent =
+      "Voice captured. Choose an action.";
+  };
+
+  recognition.onerror = function(){
+
+    document.getElementById("status").textContent =
+      "Could not hear you. Try again.";
+  };
+}
+
+</script>
+
+</body>
+</html>
