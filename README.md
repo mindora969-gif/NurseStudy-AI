@@ -6,7 +6,7 @@ NurseStudy AI is a voice-first web study assistant designed to help nursing stud
 
 ## 🚀 Live Demo
 
-https://ai-k5gw.onrender.com
+https://nursestudy-ai-k5gw.onrender.com
 
 ## ✨ Features
 
