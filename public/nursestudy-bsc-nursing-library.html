@@ -33,6 +33,7 @@ footer{text-align:center;color:var(--muted);padding:30px 12px;font-size:13px}
 <select id="yearFilter"><option value="all">All four years</option><option value="1">1st Year</option><option value="2">2nd Year</option><option value="3">3rd Year</option><option value="4">4th Year</option></select>
 </div>
 <div class="stats"><span class="pill">4 years</span><span class="pill">Core nursing subjects</span><span class="pill">Topic lists</span><span class="pill">Quick quizzes</span></div>
+<section class="year"><h2>🧍 Interactive 3D Anatomy Explorer</h2><div class="card"><p>Drag to rotate the model. Tap an organ button to highlight it. This is a learning schematic, not a medically precise anatomical model.</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;align-items:center"><div id="anatomy3d" style="height:340px;min-height:300px;background:linear-gradient(#eaf4ff,#f9fbff);border-radius:14px;overflow:hidden;position:relative"><div id="modelFallback" style="padding:20px;text-align:center">Loading interactive model…</div></div><div><div style="display:flex;flex-wrap:wrap;gap:8px" id="organButtons"><button onclick="highlightOrgan('heart')">❤️ Heart</button><button onclick="highlightOrgan('lungs')">🫁 Lungs</button><button onclick="highlightOrgan('liver')">Liver</button><button onclick="highlightOrgan('stomach')">Stomach</button><button onclick="highlightOrgan('kidneys')">Kidneys</button><button class="secondary" onclick="highlightOrgan('all')">Show all</button></div><p id="organInfo" class="notice">Choose an organ to see its basic function.</p><button class="secondary" onclick="speakOrgan()">🔊 Listen</button></div></div></div></section>
 <div id="catalog"></div>
 </main>
 <footer>NurseStudy AI • Learning support for nursing students</footer>
@@ -83,5 +84,30 @@ function explain(name,topics){return `<strong>${esc(name)}</strong> is a subject
 function render(){const term=document.getElementById('search').value.toLowerCase().trim(),yf=document.getElementById('yearFilter').value;let out='';for(let y=1;y<=4;y++){if(yf!=='all'&&yf!==String(y))continue;const items=data.filter(d=>d.y===y&&(d.name+' '+d.s+' '+d.topics.join(' ')).toLowerCase().includes(term));if(!items.length)continue;out+=`<section class="year"><h2>${['','1st Year','2nd Year','3rd Year','4th Year'][y]}</h2><div class="grid">`;for(const d of items){const id='p'+data.indexOf(d);const qs=quizBank[d.name]||[[`What is one important study area in ${d.name}?`,`Begin with ${d.topics[0]} and review its definition, key points and nursing relevance.`],[`How can you revise ${d.name}?`,`Make brief notes on ${d.topics[1]||d.topics[0]}, then practise recall questions.`]];out+=`<article class="card"><div class="semester">${esc(d.s)}</div><h3>${esc(d.name)}</h3><details><summary>View ${d.topics.length} key topics</summary><ul>${d.topics.map(t=>`<li>${esc(t)}</li>`).join('')}</ul></details><div class="actions"><button onclick="toggle('${id}e')">Simple explanation guide</button><button class="secondary" onclick="toggle('${id}q')">Quick quiz</button></div><div class="panel" id="${id}e">${explain(d.name,d.topics)}</div><div class="panel" id="${id}q">${qs.map((q,i)=>`<div class="q"><strong>Q${i+1}. ${esc(q[0])}</strong><details><summary>Show answer</summary><span class="answer">${esc(q[1])}</span></details></div>`).join('')}</div></article>`}out+='</div></section>';}document.getElementById('catalog').innerHTML=out||'<div class="card">No subjects match your search. Try a shorter keyword.</div>';}
 function toggle(id){document.getElementById(id).classList.toggle('show')}
 document.getElementById('search').addEventListener('input',render);document.getElementById('yearFilter').addEventListener('change',render);render();
+</script>
+<script>
+const organDescriptions={heart:'Heart: pumps blood through the pulmonary and systemic circulation.',lungs:'Lungs: exchange oxygen and carbon dioxide during breathing.',liver:'Liver: processes nutrients, produces bile and helps detoxify substances.',stomach:'Stomach: mixes food with acid and enzymes to begin digestion.',kidneys:'Kidneys: filter blood, regulate fluid and electrolyte balance, and produce urine.'};
+let selectedOrgan='all';
+function highlightOrgan(name){selectedOrgan=name;document.getElementById('organInfo').textContent=name==='all'?'All schematic organs are visible.':organDescriptions[name];if(window.setOrganHighlight)window.setOrganHighlight(name)}
+function speakOrgan(){const text=selectedOrgan==='all'?'This is a simplified interactive anatomy overview. Select an organ to learn its function.':organDescriptions[selectedOrgan];if('speechSynthesis'in window){speechSynthesis.cancel();speechSynthesis.speak(new SpeechSynthesisUtterance(text))}else alert(text)}
+</script>
+<script type="module">
+const host=document.getElementById('anatomy3d');
+try{
+ const THREE=await import('https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js');
+ host.innerHTML=''; const scene=new THREE.Scene(); scene.background=new THREE.Color('#edf5ff');
+ const camera=new THREE.PerspectiveCamera(45,host.clientWidth/host.clientHeight,0.1,100);camera.position.set(0,1.1,7.2);
+ const renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(host.clientWidth,host.clientHeight);host.appendChild(renderer.domElement);
+ scene.add(new THREE.HemisphereLight(0xffffff,0x6b7890,2));const light=new THREE.DirectionalLight(0xffffff,2);light.position.set(3,5,6);scene.add(light);
+ const group=new THREE.Group();scene.add(group);const mat=(color)=>new THREE.MeshStandardMaterial({color,roughness:.55,metalness:0});
+ function ellipsoid(name,x,y,z,sx,sy,sz,color){const mesh=new THREE.Mesh(new THREE.SphereGeometry(1,32,24),mat(color));mesh.name=name;mesh.position.set(x,y,z);mesh.scale.set(sx,sy,sz);group.add(mesh);return mesh}
+ // Educational schematic: simplified torso and organ shapes, not a clinical anatomical model.
+ ellipsoid('torso',0,0,0,1.18,2.05,.55,0xd7e4f1);
+ellipsoid('heart',-.18,.55,.58,.27,.34,.22,0xd9364f);ellipsoid('lungs',-.52,.72,.48,.32,.55,.2,0x69b9df);ellipsoid('lungs',.28,.72,.48,.32,.55,.2,0x69b9df);ellipsoid('liver',.32,-.15,.5,.48,.24,.22,0x985a3b);ellipsoid('stomach',-.28,-.25,.52,.3,.38,.2,0xf3b34c);ellipsoid('kidneys',-.48,-.72,.38,.17,.28,.15,0x9c67b5);ellipsoid('kidneys',.48,-.72,.38,.17,.28,.15,0x9c67b5);
+ let dragging=false,px=0,py=0;renderer.domElement.addEventListener('pointerdown',e=>{dragging=true;px=e.clientX;py=e.clientY;renderer.domElement.setPointerCapture(e.pointerId)});renderer.domElement.addEventListener('pointerup',()=>dragging=false);renderer.domElement.addEventListener('pointermove',e=>{if(dragging){group.rotation.y+=(e.clientX-px)*.01;group.rotation.x+=(e.clientY-py)*.01;px=e.clientX;py=e.clientY}});
+ window.setOrganHighlight=(name)=>group.children.forEach(m=>{if(m.name==='torso')return;m.material.emissive=new THREE.Color(name==='all'||m.name===name?0x222222:0x000000);m.material.emissiveIntensity=.6});
+ const resize=()=>{camera.aspect=host.clientWidth/host.clientHeight;camera.updateProjectionMatrix();renderer.setSize(host.clientWidth,host.clientHeight)};new ResizeObserver(resize).observe(host);
+ function animate(){requestAnimationFrame(animate);renderer.render(scene,camera)}animate();
+}catch(e){host.innerHTML='<div style="padding:18px">3D view needs an internet connection and a browser with WebGL support. You can still use all subject cards below.</div>'}
 </script>
 </body></html>
