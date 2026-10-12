@@ -1,0 +1,9 @@
+{
+  "name": "NurseStudy AI",
+  "short_name": "NurseStudy",
+  "description": "AI nursing study assistant for students",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1763b7"
+}
