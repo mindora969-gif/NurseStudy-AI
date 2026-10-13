@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NurseStudy AI — Interactive Heart Anatomy</title>
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f1f5fb;color:#1e293b;font:15px system-ui,-apple-system,Segoe UI,sans-serif}
+header{background:linear-gradient(110deg,#175e9a,#5145b8);color:#fff;padding:15px 17px}header strong{display:block;font-size:19px}header small{opacity:.9}
+main{max-width:900px;margin:16px auto;padding:0 12px}.card{background:#fff;border-radius:16px;padding:15px;margin-bottom:13px;box-shadow:0 5px 18px #17255410}
+h2{font-size:18px;margin:0 0 8px}.hint{font-size:13px;color:#64748b;line-height:1.45}
+model-viewer{width:100%;height:min(65vh,540px);min-height:340px;background:radial-gradient(ellipse at center,#f8fbff,#dbeafe);border-radius:12px}
+.buttons{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}button{border:0;border-radius:9px;padding:10px 13px;background:#1769aa;color:#fff;font-weight:650}button.secondary{background:#e8f1fb;color:#174b7b}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}.tile{background:#f2f7fd;border-radius:12px;padding:12px}.tile b{display:block;margin-bottom:5px}
+.note{background:#fff8df;border:1px solid #f4dfa0;border-radius:10px;padding:11px;font-size:12px;line-height:1.5;margin-top:12px}
+@media(max-width:480px){model-viewer{height:52vh;min-height:320px}.card{padding:12px}}
+</style>
+</head>
+<body>
+<header><strong>🩺 NurseStudy AI</strong><small>B.Sc. Nursing • Interactive 3D Anatomy Lab</small></header>
+<main>
+<section class="card">
+<h2>🫀 Human Heart — Cutaway 3D Model</h2>
+<p class="hint">This model is cut open at the front so you can study the four chambers, septum, valve flaps and major vessels. Drag to rotate; pinch to zoom.</p>
+<model-viewer id="heart"
+ src="https://cdn.3dassets.dev/assets/38953/v1/model.glb"
+ alt="Cutaway 3D human heart showing chambers, septum, valves and major vessels"
+ camera-controls touch-action="pan-y" auto-rotate auto-rotate-delay="2200" rotation-per-second="15deg"
+ shadow-intensity="1" exposure="1" environment-image="neutral"
+ camera-orbit="0deg 75deg 115%" field-of-view="30deg" interaction-prompt="auto">
+ <div slot="poster" style="padding:24px;text-align:center">Loading 3D heart…</div>
+</model-viewer>
+<div class="buttons">
+<button onclick="let m=document.getElementById('heart');m.cameraOrbit='0deg 75deg 115%';m.fieldOfView='30deg'">Reset view</button>
+<button class="secondary" id="rotate" onclick="let m=document.getElementById('heart');m.autoRotate=!m.autoRotate;this.textContent=m.autoRotate?'Pause rotation':'Auto rotate'">Pause rotation</button>
+<button class="secondary" onclick="speak('The heart has four chambers. The right atrium receives oxygen-poor blood and the right ventricle pumps it to the lungs. The left atrium receives oxygen-rich blood and the left ventricle pumps it into the aorta. The septum separates the right and left sides. Heart valves help prevent backflow.')">🔊 Listen: heart function</button>
+</div>
+<div class="note">For study and visual learning only; not a diagnostic tool. Use your prescribed college syllabus, and practise clinical procedures only under qualified supervision.</div>
+</section>
+<section class="card"><h2>Learn the anatomy</h2><div class="grid">
+<div class="tile"><b>Right atrium & ventricle</b>Receive oxygen-poor blood and send it to the lungs.<p><button class="secondary" onclick="speak('The right atrium receives oxygen-poor blood from the body. The right ventricle pumps it to the lungs through the pulmonary artery.')">🔊 Listen</button></p></div>
+<div class="tile"><b>Left atrium & ventricle</b>Receive oxygen-rich blood. The left ventricle pumps it into the aorta.<p><button class="secondary" onclick="speak('The left atrium receives oxygen-rich blood from the lungs. The left ventricle pumps it through the aorta to the body.')">🔊 Listen</button></p></div>
+<div class="tile"><b>Valves</b>Tricuspid, pulmonary, mitral and aortic valves help keep blood flowing forward.<p><button class="secondary" onclick="speak('The four main heart valves are tricuspid, pulmonary, mitral and aortic. They help prevent backward flow of blood.')">🔊 Listen</button></p></div>
+<div class="tile"><b>Septum & major vessels</b>The septum separates the heart’s sides. The venae cavae, pulmonary vessels and aorta connect it to the body and lungs.<p><button class="secondary" onclick="speak('The septum separates the right and left sides of the heart. The venae cavae bring blood from the body, pulmonary vessels connect to the lungs, and the aorta carries oxygen-rich blood to the body.')">🔊 Listen</button></p></div>
+</div></section>
+<section class="card"><h2>Quick check</h2><p><b>Which chamber pumps oxygen-rich blood into the aorta?</b></p><div class="buttons">
+<button onclick="check(false)">Right ventricle</button><button onclick="check(true)">Left ventricle</button><button onclick="check(false)">Right atrium</button></div><p id="feedback" aria-live="polite"></p></section>
+<p class="hint">Model: “Heart Sectioned (Human Anatomy and Education Kit)”, CC0 1.0. The model is loaded from a public 3D asset CDN, so an internet connection is needed.</p>
+</main>
+<script>
+function speak(t){if(!('speechSynthesis'in window)){alert('Voice playback is not supported in this browser.');return;}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-IN';u.rate=.9;speechSynthesis.speak(u)}
+function check(ok){document.getElementById('feedback').textContent=ok?'✅ Correct! The left ventricle pumps blood into the aorta.':'Not quite—try again. It is the left ventricle.'}
+document.getElementById('heart').addEventListener('error',()=>{document.querySelector('.hint').textContent='The model could not load. Check your connection and refresh; if it still fails, the CDN may be blocked on your network.'});
+</script>
+</body></html>
