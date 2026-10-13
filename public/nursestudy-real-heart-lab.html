@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NurseStudy AI — Realistic Heart Lab</title>
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#eef4fb;color:#102e50;font-family:Arial,sans-serif}header{background:#062746;color:white;padding:15px 17px;font-size:20px;font-weight:bold}header small{display:block;font-size:12px;font-weight:normal;margin-top:4px}main{max-width:1050px;margin:14px auto;padding:0 10px}.layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,.85fr);gap:12px}.card{background:white;border:1px solid #d7e5f4;border-radius:15px;padding:14px;margin-bottom:12px;box-shadow:0 3px 10px #15365a0b}h2{font-size:18px;margin:0 0 8px}p{font-size:14px;line-height:1.45}.tabs,.actions{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}button{border:0;border-radius:9px;padding:10px 12px;background:#e4effa;color:#124d7d;font-weight:bold;cursor:pointer}button.active,button.primary{background:#0876ce;color:#fff}model-viewer{width:100%;height:430px;background:linear-gradient(#d9e8f9,#eef6ff);border-radius:12px}.labels{display:grid;grid-template-columns:1fr 1fr;gap:6px}.labels button{text-align:left;font-weight:normal}#info{padding:12px;background:#f0f7ff;border-radius:10px;min-height:135px}.small{font-size:12px;color:#657b91}#status{font-size:12px;color:#9a4b14;min-height:17px}.topic{background:#f1f7fd;padding:10px;border-radius:9px;margin:7px 0;font-size:14px}@media(max-width:700px){.layout{grid-template-columns:1fr}model-viewer{height:350px}}
+</style></head><body><header>🩺 NurseStudy AI <small>B.Sc. Nursing · Realistic Human Heart Anatomy Lab</small></header><main><div class="layout"><div>
+<section class="card"><h2>🫀 Human Heart — High-detail cutaway</h2><p>Rotate with one finger and pinch to zoom. Switch between the outer model and a high-detail open-chamber model.</p>
+<div class="tabs"><button id="outerBtn" class="active" onclick="setView('outer')">Outer view</button><button id="insideBtn" onclick="setView('inside')">Inside / cutaway</button></div>
+<model-viewer id="heart" src="https://cdn.3dassets.dev/assets/38952/v1/model.glb" alt="3D human heart anatomy" camera-controls auto-rotate shadow-intensity=".8" exposure="1" environment-image="neutral" loading="eager" camera-orbit="0deg 75deg auto"></model-viewer>
+<div class="actions"><button class="primary" onclick="resetView()">↻ Reset view</button><button onclick="toggleRotate()">⏸ Pause rotation</button><button onclick="speakPart()">🔊 Listen</button></div><div id="status">Loading 3D model…</div>
+<p class="small">The cutaway model is a third-party 13 MB light GLB. It may take time on mobile data. The model is interactive; labels below provide study notes but are not pinned to exact mesh coordinates.</p></section>
+<section class="card"><h2>🏷️ Study a structure</h2><div id="labels" class="labels"></div></section></div>
+<div><section class="card"><h2>Part information</h2><div id="info"><b id="partName">Aorta</b><p id="partDesc">The aorta is the main artery carrying oxygen-rich blood from the left ventricle to the body.</p><b>Function</b><p id="partFunction">Supplies oxygenated blood to systemic circulation.</p></div><button class="primary" onclick="speakPart()">🔊 Hear explanation</button></section>
+<section class="card"><h2>Quick navigation</h2><div class="topic"><b>Chambers</b><br>Right atrium, right ventricle, left atrium, left ventricle.</div><div class="topic"><b>Valves</b><br>Tricuspid, pulmonary, mitral and aortic valves.</div><div class="topic"><b>Major vessels</b><br>Aorta, venae cavae, pulmonary artery and pulmonary veins.</div><div class="topic"><b>Coronary circulation</b><br>Coronary arteries supply the heart muscle.</div></section>
+<section class="card"><h2>Quick check</h2><p><b>Which chamber pumps oxygen-rich blood into the aorta?</b></p><button onclick="quiz(false)">Right ventricle</button><button onclick="quiz(true)">Left ventricle</button><button onclick="quiz(false)">Right atrium</button><p id="result"></p></section><section class="card"><h2>Study note</h2><p>Use this model as a visual learning aid alongside your prescribed nursing textbook and faculty teaching.</p><p class="small">Educational use only, not a diagnostic tool.</p></section></div></div></main>
+<script>
+const viewer=document.getElementById('heart');
+const urls={outer:'https://www.innerscene.com/tools/library/3d-parts/heart-e9f72b0e/heart.glb',inside:'https://grab3d.com/dl/human-heart-cutaway/human-heart-cutaway-light.glb'};
+const parts=[
+['Aorta','Main artery carrying oxygen-rich blood from the left ventricle to the body.','Supplies oxygenated blood to systemic circulation.'],
+['Superior vena cava','Returns oxygen-poor blood from the upper body to the right atrium.','Returns venous blood to the heart.'],
+['Inferior vena cava','Returns oxygen-poor blood from the lower body to the right atrium.','Returns venous blood from the lower body.'],
+['Pulmonary artery','Carries oxygen-poor blood from the right ventricle to the lungs.','Sends blood to the lungs for gas exchange.'],
+['Pulmonary veins','Carry oxygen-rich blood from the lungs to the left atrium.','Return oxygenated blood to the heart.'],
+['Right atrium','Receives oxygen-poor blood from the venae cavae.','Transfers blood to the right ventricle.'],
+['Right ventricle','Pumps oxygen-poor blood toward the lungs.','Pumps blood through the pulmonary artery.'],
+['Left atrium','Receives oxygen-rich blood from the pulmonary veins.','Transfers blood to the left ventricle.'],
+['Left ventricle','Pumps oxygen-rich blood into the aorta.','Drives systemic circulation.'],
+['Septum','Wall separating the right and left sides of the heart.','Helps prevent mixing between the two sides.'],
+['Tricuspid valve','Valve between the right atrium and right ventricle.','Helps prevent backflow into the right atrium.'],
+['Mitral valve','Valve between the left atrium and left ventricle.','Helps prevent backflow into the left atrium.'],
+['Apex','Pointed lower tip of the heart, formed mainly by the left ventricle.','An anatomical landmark of the heart.']];
+let chosen=0,spinning=true;
+const list=document.getElementById('labels');
+parts.forEach((p,i)=>{const b=document.createElement('button');b.textContent=(i+1)+'. '+p[0];b.onclick=()=>selectPart(i);list.appendChild(b)});
+function selectPart(i){chosen=i;partName.textContent=parts[i][0];partDesc.textContent=parts[i][1];partFunction.textContent=parts[i][2];[...list.children].forEach((b,j)=>b.classList.toggle('active',i===j))}
+function setView(v){outerBtn.classList.toggle('active',v==='outer');insideBtn.classList.toggle('active',v==='inside');status.textContent='Loading '+(v==='inside'?'high-detail cutaway':'outer')+' model…';viewer.src=urls[v];viewer.cameraOrbit='0deg 75deg auto'}
+function resetView(){viewer.cameraOrbit='0deg 75deg auto';viewer.fieldOfView='auto';viewer.autoRotate=spinning}
+function toggleRotate(){spinning=!spinning;viewer.autoRotate=spinning;event.target.textContent=spinning?'⏸ Pause rotation':'▶ Resume rotation'}
+function speakPart(){const t=parts[chosen][0]+'. '+parts[chosen][1]+' Function: '+parts[chosen][2];if('speechSynthesis'in window){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-IN';speechSynthesis.speak(u)}else alert(t)}
+function quiz(ok){result.textContent=ok?'Correct! The left ventricle pumps oxygen-rich blood into the aorta.':'Try again: the left ventricle pumps oxygen-rich blood into the aorta.'}
+viewer.addEventListener('load',()=>status.textContent='3D model loaded. Drag to rotate; pinch to zoom.');
+viewer.addEventListener('error',()=>status.textContent='The 3D model could not load on this connection. Check internet and try again.');
+selectPart(0);
+</script></body></html>
