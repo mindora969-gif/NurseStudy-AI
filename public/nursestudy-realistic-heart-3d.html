@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NurseStudy AI — Realistic 3D Heart</title>
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+<style>
+:root{color-scheme:light;--blue:#1769aa;--ink:#1e293b}
+*{box-sizing:border-box}body{margin:0;background:#f1f5fb;color:var(--ink);font:15px system-ui,-apple-system,Segoe UI,sans-serif}
+header{background:linear-gradient(110deg,#175e9a,#5145b8);color:white;padding:16px 18px}
+header strong{display:block;font-size:19px}header small{opacity:.9}
+main{max-width:900px;margin:18px auto;padding:0 12px}
+.card{background:white;border-radius:18px;padding:16px;margin-bottom:14px;box-shadow:0 5px 18px #17255410}
+h2{font-size:19px;margin:0 0 8px}p{line-height:1.5}.hint{font-size:13px;color:#64748b;margin-top:0}
+model-viewer{width:100%;height:min(68vh,570px);min-height:360px;background:radial-gradient(ellipse at center,#f8fbff,#dbeafe);border-radius:12px;--poster-color:transparent}
+.buttons{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+button{border:0;border-radius:10px;padding:11px 14px;background:var(--blue);color:white;font-weight:650}
+button.secondary{background:#e8f1fb;color:#174b7b}
+.note{background:#fff8df;border:1px solid #f4dfa0;border-radius:10px;padding:12px;font-size:12px;line-height:1.5;margin-top:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.tile{background:#f2f7fd;border-radius:12px;padding:13px}.tile b{display:block;margin-bottom:5px}
+#feedback{font-weight:650;margin-top:10px;min-height:22px}
+@media(max-width:480px){main{margin:12px auto}.card{padding:13px}model-viewer{min-height:330px;height:52vh}}
+</style>
+</head>
+<body>
+<header><strong>🩺 NurseStudy AI</strong><small>B.Sc. Nursing • Realistic Interactive 3D Anatomy Lab</small></header>
+<main>
+<section class="card">
+<h2>🫀 Human Heart — 3D Cutaway Model</h2>
+<p class="hint">This upgraded model shows the heart’s cut-open chambers and valves. Drag to rotate; pinch to zoom. The detailed model may take a little longer to load on mobile data.</p>
+<model-viewer id="heart" src="https://grab3d.com/dl/human-heart-cutaway/human-heart-cutaway.glb"
+  alt="High-detail cutaway 3D model of a human heart showing chambers, valves and major vessels"
+  camera-controls touch-action="pan-y" auto-rotate auto-rotate-delay="2500" rotation-per-second="12deg"
+  shadow-intensity="1" exposure="1" environment-image="neutral"
+  camera-orbit="0deg 75deg 105%" field-of-view="30deg" interaction-prompt="auto">
+  <div slot="progress-bar" style="height:5px;background:#dbeafe;width:100%;"></div>
+  <div slot="poster" style="padding:24px;text-align:center">Loading detailed 3D heart… please wait.</div>
+</model-viewer>
+<div class="buttons">
+<button onclick="document.getElementById('heart').cameraOrbit='0deg 75deg 105%';document.getElementById('heart').fieldOfView='30deg'">Reset view</button>
+<button class="secondary" onclick="let m=document.getElementById('heart');m.autoRotate=!m.autoRotate;this.textContent=m.autoRotate?'Pause rotation':'Auto rotate'">Pause rotation</button>
+<button class="secondary" onclick="speak('The heart has four chambers. The right atrium receives oxygen-poor blood, and the right ventricle sends it to the lungs. The left atrium receives oxygen-rich blood from the lungs, and the left ventricle pumps it into the aorta. Valves help prevent backflow.')">🔊 Listen: heart function</button>
+</div>
+<div class="note">Educational model for visual learning only. Anatomy details may differ from clinical specimens. Not a diagnostic tool; follow your prescribed syllabus and learn clinical procedures only under qualified supervision.</div>
+</section>
+<section class="card">
+<h2>Learn the anatomy</h2>
+<div class="grid">
+<div class="tile"><b>Right atrium & ventricle</b><span>Receive oxygen-poor blood and send it toward the lungs through pulmonary circulation.</span><p><button class="secondary" onclick="speak('The right atrium receives oxygen-poor blood from the body. The right ventricle pumps it to the lungs through the pulmonary artery.')">🔊 Listen</button></p></div>
+<div class="tile"><b>Left atrium & ventricle</b><span>Receive oxygen-rich blood from the lungs. The left ventricle pumps blood into the aorta.</span><p><button class="secondary" onclick="speak('The left atrium receives oxygen-rich blood from the lungs. The left ventricle pumps it through the aorta to the body.')">🔊 Listen</button></p></div>
+<div class="tile"><b>Valves</b><span>Tricuspid, pulmonary, mitral and aortic valves help keep blood flowing in one direction.</span><p><button class="secondary" onclick="speak('The four main heart valves are tricuspid, pulmonary, mitral and aortic. They help prevent backward flow of blood.')">🔊 Listen</button></p></div>
+<div class="tile"><b>Major vessels</b><span>Venae cavae, pulmonary arteries, pulmonary veins and aorta connect the heart with the body and lungs.</span><p><button class="secondary" onclick="speak('The venae cavae bring oxygen-poor blood to the right atrium. Pulmonary arteries carry it to the lungs. Pulmonary veins return oxygen-rich blood to the left atrium. The aorta carries it to the body.')">🔊 Listen</button></p></div>
+</div>
+</section>
+<section class="card">
+<h2>Quick check</h2>
+<p><b>Which chamber pumps oxygen-rich blood into the aorta?</b></p>
+<div class="buttons">
+<button onclick="answer(false)">Right ventricle</button>
+<button onclick="answer(true)">Left ventricle</button>
+<button onclick="answer(false)">Right atrium</button>
+</div><div id="feedback" aria-live="polite"></div>
+</section>
+<p class="hint">Model source: Grab3D Human Heart Cutaway, released under CC0 1.0. A stable internet connection is required to load the model.</p>
+</main>
+<script>
+function speak(t){if(!('speechSynthesis'in window)){alert('Voice playback is not supported in this browser.');return;}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang='en-IN';u.rate=.9;speechSynthesis.speak(u)}
+function answer(ok){document.getElementById('feedback').textContent=ok?'✅ Correct! The left ventricle pumps blood into the aorta.':'Not quite—try again. The left ventricle pumps blood into the aorta.'}
+document.getElementById('heart').addEventListener('error',()=>{document.querySelector('.hint').textContent='The detailed 3D file could not load. Check your internet connection and refresh the page.'});
+</script>
+</body></html>
