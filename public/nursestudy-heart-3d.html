@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NurseStudy AI — Interactive 3D Heart</title>
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+<style>
+:root{font-family:Arial,sans-serif;color:#172033;background:#f2f6fc}
+*{box-sizing:border-box}body{margin:0}header{background:linear-gradient(120deg,#1769aa,#5147bb);color:#fff;padding:20px}
+main{max-width:1000px;margin:auto;padding:16px}.card{background:#fff;border-radius:16px;padding:16px;margin:14px 0;box-shadow:0 4px 18px #173b6710}
+h1{font-size:24px;margin:0 0 6px}h2{font-size:19px;margin:0 0 12px}.muted{color:#5b6575;font-size:14px;line-height:1.5}
+model-viewer{width:100%;height:420px;background:radial-gradient(ellipse at center,#eaf5ff,#dce8f7);border-radius:12px;--poster-color:transparent}
+button{border:0;border-radius:9px;padding:11px 14px;margin:4px 4px 4px 0;background:#1769aa;color:#fff;font-weight:700;cursor:pointer}
+button.secondary{background:#e8f1fb;color:#17466e}.note{background:#fff6d9;border:1px solid #f0df9a;padding:12px;border-radius:10px;font-size:13px;line-height:1.5}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.part{background:#f4f8ff;padding:12px;border-radius:10px;margin:8px 0}
+@media(max-width:650px){.grid{grid-template-columns:1fr}model-viewer{height:340px}}
+</style>
+</head>
+<body>
+<header><h1>🩺 NurseStudy AI</h1><div>B.Sc. Nursing • Interactive 3D Anatomy Lab</div></header>
+<main>
+<section class="card">
+<h2>🫀 Human Heart — Interactive 3D Model</h2>
+<p class="muted">Drag to rotate • Pinch or scroll to zoom • Use the controls below to reset or auto-rotate.</p>
+<model-viewer id="heart" src="https://cdn.3dassets.dev/assets/38952/v1/model.glb"
+ alt="3D educational model of a human heart with major blood vessels"
+ camera-controls touch-action="pan-y" auto-rotate rotation-per-second="18deg"
+ shadow-intensity="0.8" exposure="1" environment-image="neutral"
+ camera-orbit="0deg 75deg 2.5m" min-camera-orbit="auto auto 0.5m" max-camera-orbit="auto auto 6m">
+<div slot="progress-bar" style="height:5px;background:#1769aa"></div>
+</model-viewer>
+<div>
+<button onclick="document.getElementById('heart').cameraOrbit='0deg 75deg 2.5m';document.getElementById('heart').jumpCameraToGoal()">Reset view</button>
+<button class="secondary" onclick="let m=document.getElementById('heart');m.autoRotate=!m.autoRotate;this.textContent=m.autoRotate?'Stop rotation':'Auto rotate'">Stop rotation</button>
+<button class="secondary" onclick="speak('The heart is a muscular organ that pumps blood through the pulmonary and systemic circulations. The right side sends blood to the lungs. The left side sends oxygen-rich blood to the body.')">🔊 Listen: heart function</button>
+</div>
+<div class="note" style="margin-top:12px">Educational model for visual learning. It is not a diagnostic tool and does not label every internal structure. Follow your college syllabus and learn clinical procedures only under qualified supervision.</div>
+</section>
+<section class="card">
+<h2>Learn the basics</h2>
+<div class="grid">
+<div class="part"><b>Right side</b><p class="muted">Receives oxygen-poor blood from the body and pumps it to the lungs through the pulmonary circulation.</p><button class="secondary" onclick="speak('The right atrium receives oxygen-poor blood. The right ventricle pumps it to the lungs through the pulmonary artery.')">🔊 Listen</button></div>
+<div class="part"><b>Left side</b><p class="muted">Receives oxygen-rich blood from the lungs and pumps it to the body through the aorta.</p><button class="secondary" onclick="speak('The left atrium receives oxygen-rich blood from the lungs. The left ventricle pumps it to the body through the aorta.')">🔊 Listen</button></div>
+<div class="part"><b>Valves</b><p class="muted">Heart valves help keep blood moving in one direction.</p><button class="secondary" onclick="speak('Heart valves open to allow forward flow and close to help prevent backward flow.')">🔊 Listen</button></div>
+<div class="part"><b>Study reminder</b><p class="muted">Learn chambers, valves, major vessels, blood flow, and the cardiac cycle from your prescribed textbook.</p></div>
+</div>
+</section>
+<section class="card">
+<h2>Quick check</h2>
+<p><b>Which chamber pumps oxygen-rich blood into the aorta?</b></p>
+<button onclick="answer('wrong')">Right ventricle</button><button onclick="answer('right')">Left ventricle</button><button onclick="answer('wrong')">Right atrium</button>
+<p id="result" class="muted" aria-live="polite"></p>
+</section>
+<p class="muted">3D asset: “Heart Model (Human Anatomy and Education Kit)”, CC0 1.0. The model is hosted on a third-party CDN, so an internet connection is needed.</p>
+</main>
+<script>
+function speak(t){if(!('speechSynthesis' in window)){alert('Voice playback is not supported in this browser.');return}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang='en-IN';speechSynthesis.speak(u)}
+function answer(a){document.getElementById('result').textContent=a==='right'?'Correct! The left ventricle pumps blood into the aorta.':'Not quite. Try again: the left ventricle pumps blood into the aorta.'}
+</script>
+</body>
+</html>
