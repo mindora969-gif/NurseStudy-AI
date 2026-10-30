@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#173e91">
+<title>NurseStudy AI | Complete Anatomy & Physiology Notes</title>
+<style>
+:root{--ink:#173b8f;--ink2:#214b9c;--paper:#fffef9;--line:#c9dafa;--margin:#e8a0a0;--highlight:#fff09a;--cyan:#c9f0ff;--muted:#526887;--border:#cbd8ed;--bg:#edf3fb;--green:#d9f4df}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#1c3155;font-family:"Segoe Print","Comic Sans MS",cursive,system-ui,sans-serif;line-height:1.62}
+header{background:#173e91;color:white;padding:20px 14px 24px;border-bottom:5px solid #f0d86c}
+.wrap{width:min(1100px,100% - 22px);margin:auto}.brand{font:700 14px system-ui,sans-serif;letter-spacing:.5px;opacity:.95}
+h1{font-size:clamp(1.55rem,5vw,2.6rem);text-align:center;text-decoration:underline;text-underline-offset:8px;line-height:1.2;margin:14px 0}
+header p{text-align:center;margin:12px auto 0;max-width:760px;font-family:system-ui,sans-serif;font-size:.95rem}
+.toolbar{background:#fff;padding:12px;border:1px solid var(--border);border-radius:14px;margin:16px 0;display:grid;gap:9px;font-family:system-ui,sans-serif}
+input,select,button{font:inherit}input,select{padding:11px;border:1px solid #bacbe5;border-radius:9px;background:white;width:100%;color:#18345c}
+button{cursor:pointer}.years{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}
+.year{padding:10px 7px;border-radius:10px;border:1px solid #b7c9e4;background:#fff;color:var(--ink);font-weight:700;font-family:system-ui,sans-serif}
+.year.active{background:var(--ink);color:#fff}
+main{padding-bottom:35px}.intro{padding:14px 16px;background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:14px}
+.highlight{background:linear-gradient(transparent 25%,var(--highlight) 25%,var(--highlight) 94%,transparent 94%);padding:0 3px;font-weight:800}
+.bluehl{background:linear-gradient(transparent 20%,var(--cyan) 20%,var(--cyan) 94%,transparent 94%);padding:0 3px;font-weight:800}
+.warn{background:#fff5d8;border:1px solid #e8d18c;border-radius:10px;padding:11px 13px;margin:12px 0;font-family:system-ui,sans-serif;font-size:.9rem}
+.module-grid{display:grid;grid-template-columns:1fr;gap:13px}
+.note{background:var(--paper);border:1px solid var(--border);border-radius:12px;padding:16px 15px 17px;position:relative;overflow:hidden;box-shadow:0 3px 10px #173e9110;background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 31px,#d8e5fb 32px);background-position:0 14px}
+.note:before{content:"";position:absolute;top:0;bottom:0;left:31px;border-left:1px solid #edb6b6;opacity:.8}
+.note>*{position:relative;margin-left:22px}
+.note h2{font-size:1.22rem;line-height:1.35;margin-top:0;margin-bottom:9px;color:#142f83;text-decoration:underline;text-underline-offset:4px}
+.note h3{font-size:1rem;margin:13px 0 4px;color:#173e91}
+.note p{margin:5px 0}.note ul,.note ol{padding-left:22px;margin:5px 0 9px}.note li{padding-left:2px;margin:3px 0}
+.tag{display:inline-block;font:700 .72rem system-ui,sans-serif;background:#e7efff;color:#1b438f;border-radius:30px;padding:4px 9px;margin-bottom:8px}
+.keybox{border:2px solid #4565b2;border-radius:9px;padding:8px 10px;margin:10px 0;background:#fffef5}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.btn{border:0;border-radius:9px;background:#173e91;color:white;padding:9px 12px;font:700 .88rem system-ui,sans-serif}
+.btn.secondary{background:#e4edff;color:#173e91;border:1px solid #c1d2f3}
+.empty{background:white;border-radius:10px;padding:18px;text-align:center;color:var(--muted)}
+.panel{display:none;background:white;border:1px solid var(--border);border-radius:12px;padding:16px;margin:14px 0;font-family:system-ui,sans-serif}.panel.show{display:block}
+.q{border-bottom:1px solid #e0e8f5;padding:12px 0}.q label{display:block;margin:6px 0}
+footer{text-align:center;color:#526887;padding:18px;font: .83rem system-ui,sans-serif}
+@media(min-width:720px){.toolbar{grid-template-columns:2fr 1fr}.years{grid-template-columns:repeat(5,minmax(0,1fr))}.module-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.note{padding:18px 18px 20px}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><div class="brand">🩺 NurseStudy AI • STUDY NOTES</div><h1>ANATOMY & PHYSIOLOGY</h1><p>Complete system-wise revision library • Notebook-style notes • Highlighted key lines • Search • Read aloud • Quiz</p></div></header>
+<main class="wrap">
+ <div class="intro"><strong>How to study:</strong> Read the definitions, learn the highlighted lines, revise the organ structures and functions, then test yourself. Use your prescribed syllabus and textbooks to match your university curriculum.</div>
+ <div class="warn"><strong>Clinical safety:</strong> These notes are for learning and revision, not a substitute for supervised clinical training, local protocols, or professional medical advice. Normal values can vary by age, context, and reference source.</div>
+ <div class="toolbar"><input id="search" type="search" placeholder="Search any system, organ, topic or key term…" aria-label="Search notes"><select id="filter" aria-label="Filter topic"><option value="all">All modules</option><option value="basics">Foundations</option><option value="systems">Body systems</option><option value="cells">Cells & tissues</option><option value="nursing">Nursing application</option></select></div>
+ <div class="years" id="yearButtons"><button class="year active" data-year="all">All topics</button><button class="year" data-year="basics">Foundations</button><button class="year" data-year="cells">Cells & tissues</button><button class="year" data-year="systems">Body systems</button><button class="year" data-year="nursing">Nursing application</button></div>
+ <p id="count" style="font-family:system-ui,sans-serif;color:#526887"></p>
+ <div id="notes" class="module-grid"></div>
+ <section class="panel" id="quiz"><h2>Quick revision quiz</h2><p>Choose one answer for each question.</p>
+ <form id="quizForm">
+ <div class="q"><strong>1. Anatomy mainly studies:</strong><label><input type="radio" name="q1" value="a"> Body structure</label><label><input type="radio" name="q1" value="b"> Body function only</label><label><input type="radio" name="q1" value="c"> Medicines only</label></div>
+ <div class="q"><strong>2. The basic structural and functional unit of life is the:</strong><label><input type="radio" name="q2" value="a"> Organ</label><label><input type="radio" name="q2" value="b"> Cell</label><label><input type="radio" name="q2" value="c"> Organ system</label></div>
+ <div class="q"><strong>3. Gas exchange occurs mainly in the:</strong><label><input type="radio" name="q3" value="a"> Alveoli</label><label><input type="radio" name="q3" value="b"> Trachea</label><label><input type="radio" name="q3" value="c"> Pleura</label></div>
+ <div class="q"><strong>4. The heart's natural primary pacemaker is the:</strong><label><input type="radio" name="q4" value="a"> AV valve</label><label><input type="radio" name="q4" value="b"> SA node</label><label><input type="radio" name="q4" value="c"> Aorta</label></div>
+ <div class="q"><strong>5. Homeostasis means:</strong><label><input type="radio" name="q5" value="a"> Maintaining a relatively stable internal environment</label><label><input type="radio" name="q5" value="b"> Stopping all body processes</label><label><input type="radio" name="q5" value="c"> Only digesting food</label></div>
+ <div class="actions"><button class="btn" type="submit">Check score</button><button class="btn secondary" type="button" id="hideQuiz">Close</button></div></form><p id="score" role="status"></p></section>
+ <div class="actions"><button class="btn" id="openQuiz">🧠 Take revision quiz</button><button class="btn secondary" id="readHighlights">🔊 Read key concepts aloud</button></div>
+</main>
+<footer>NurseStudy AI • Learn the structure, understand the function, provide safer care.</footer>
+<script>
+const modules=[
+{cat:"basics",title:"1. Introduction to Anatomy & Physiology",sub:"Definitions • branches • importance",sections:[
+["Anatomy","Anatomy is the study of the structures of the human body and the relationships among body parts."],
+["Physiology","Physiology is the study of how the body and its parts function."],
+["Branches of anatomy",["Gross anatomy: structures visible to the naked eye.","Microscopic anatomy: cells and tissues viewed using a microscope.","Developmental anatomy: structural changes across life; embryology focuses on early development.","Surface anatomy: external landmarks related to deeper structures.","Regional anatomy: all structures in one body region.","Systemic anatomy: structures studied system by system.","Clinical/radiographic anatomy: anatomy applied to examination and medical imaging."]],
+["Levels of organization",["Chemical → cellular → tissue → organ → organ system → organism.","A tissue is a group of similar cells and their extracellular material working together.","An organ contains two or more tissue types that work together."]],
+["Anatomical position & direction",["Standard anatomical position: standing upright, facing forward, arms at sides, palms facing forward.","Superior/inferior: toward the head/toward the feet.","Anterior/posterior: front/back.","Medial/lateral: toward/away from the midline.","Proximal/distal: nearer to/farther from the point of attachment.","Superficial/deep: nearer to/farther from the body surface."]],
+["Anatomical planes",["Sagittal: divides left and right portions.","Midsagittal: divides into equal right and left halves.","Frontal/coronal: divides anterior and posterior portions.","Transverse/horizontal: divides superior and inferior portions."]],
+["Body cavities",["Dorsal cavity: cranial cavity (brain) and vertebral canal (spinal cord).","Ventral cavity: thoracic and abdominopelvic cavities.","Thoracic cavity contains the lungs and mediastinal structures including the heart.","Abdominopelvic cavity contains many digestive, urinary and reproductive organs."]],
+["Highlighted exam point","<mark>ANATOMY = structure; PHYSIOLOGY = function.</mark> This distinction is a foundation for all later topics."]] },
+{cat:"cells",title:"2. Cell Biology",sub:"Cell structure • membranes • transport",sections:[
+["Definition","The cell is the basic structural and functional unit of the human body."],
+["Main cell parts",["Plasma membrane: selectively controls movement into and out of the cell.","Cytoplasm: cytosol plus organelles outside the nucleus.","Nucleus: contains most DNA and helps regulate cell activity.","Mitochondria: produce most cellular ATP during aerobic metabolism.","Ribosomes: make proteins.","Endoplasmic reticulum: rough ER supports protein processing; smooth ER supports lipid synthesis and other functions.","Golgi apparatus: modifies, sorts and packages proteins and lipids.","Lysosomes: contain enzymes for intracellular digestion."]],
+["Transport across membranes",["Diffusion: net movement of particles from higher to lower concentration.","Osmosis: movement of water across a selectively permeable membrane.","Facilitated diffusion: passive movement using membrane proteins.","Active transport: movement that requires energy, directly or indirectly.","Endocytosis brings material into the cell; exocytosis releases material."]],
+["Cell division & death",["Mitosis produces two genetically similar daughter cells for growth and repair.","Apoptosis is regulated programmed cell death.","Uncontrolled cell division can contribute to cancer."]],
+["Highlighted exam point","<mark>Cell membrane = selective barrier; nucleus = genetic control; mitochondria = major ATP production.</mark>"]] },
+{cat:"cells",title:"3. Tissues",sub:"Four primary tissue types",sections:[
+["Epithelial tissue",["Covers body surfaces, lines cavities and forms glands.","Functions include protection, absorption, secretion and filtration.","Examples: epidermis, intestinal lining and glandular tissue."]],
+["Connective tissue",["Supports, binds and protects other tissues.","Includes bone, cartilage, blood, adipose tissue, tendons and ligaments.","Its cells are commonly embedded in an extracellular matrix."]],
+["Muscle tissue",["Skeletal: striated and usually voluntary; moves the skeleton.","Cardiac: striated, involuntary muscle of the heart.","Smooth: involuntary muscle in walls of hollow organs and vessels."]],
+["Nervous tissue","Neurons conduct signals; glial cells support, protect and maintain the nervous system."],
+["Tissue repair","Inflammation, cell proliferation and remodelling contribute to healing. Healing varies with blood supply, nutrition, infection, age and other factors."],
+["Highlighted exam point","<mark>Four primary tissue types: epithelial, connective, muscle and nervous.</mark>"]] },
+{cat:"basics",title:"4. Homeostasis & Body Fluids",sub:"Feedback • fluid balance • electrolytes",sections:[
+["Homeostasis","Homeostasis is the maintenance of a relatively stable internal environment despite external or internal change."],
+["Feedback mechanisms",["Negative feedback opposes a change and is the most common homeostatic mechanism; examples include temperature and blood glucose regulation.","Positive feedback amplifies a process until an endpoint; examples include labour contractions and clot formation."]],
+["Body fluid compartments",["Intracellular fluid is inside cells; extracellular fluid is outside cells and includes interstitial fluid and plasma.","Water balance is influenced by intake, kidney function, hormones and losses."]],
+["Important electrolytes",["Sodium is a major extracellular cation and contributes to fluid balance and nerve function.","Potassium is a major intracellular cation and is essential for normal nerve and muscle activity, including cardiac function.","Calcium supports bones, muscle contraction, nerve signalling and clotting.","Electrolyte disorders can be serious and require clinical assessment."]],
+["Highlighted exam point","<mark>Negative feedback stabilizes a variable; positive feedback amplifies a process.</mark>"]] },
+{cat:"systems",title:"5. Integumentary System",sub:"Skin • hair • nails • temperature",sections:[
+["Structures",["Skin has epidermis and dermis; hypodermis lies beneath the skin and is not part of the skin proper.","Accessory structures include hair, nails, sweat glands and sebaceous glands."]],
+["Functions",["Protection against injury, microbes and water loss.","Temperature regulation through sweating and changes in skin blood flow.","Sensation, vitamin D synthesis and limited excretion."]],
+["Physiology & care",["The epidermis provides a protective barrier; dermal blood vessels support thermoregulation and healing.","Pressure, moisture, poor circulation and reduced sensation can increase risk of skin injury.","Inspect skin respectfully and report new wounds, colour changes or non-blanching redness according to local policy."]],
+["Highlighted exam point","<mark>Skin protects the body, helps regulate temperature, and provides sensory information.</mark>"]] },
+{cat:"systems",title:"6. Skeletal System",sub:"Bones • joints • marrow",sections:[
+["Functions",["Support and shape; protection of organs; movement with muscles.","Mineral storage, especially calcium and phosphate.","Blood cell formation (haematopoiesis) in red bone marrow."]],
+["Bone structure",["Compact bone is dense; spongy bone contains trabeculae and spaces.","Periosteum covers most outer bone surfaces.","Osteoblasts build bone; osteoclasts resorb bone; osteocytes maintain bone tissue."]],
+["Axial & appendicular skeleton",["Axial: skull, vertebral column, ribs and sternum.","Appendicular: upper and lower limbs plus pectoral and pelvic girdles."]],
+["Joint types",["Fibrous joints allow little movement; cartilaginous joints allow limited movement; synovial joints are freely movable.","Ligaments connect bone to bone; tendons connect muscle to bone."]],
+["Highlighted exam point","<mark>Red bone marrow forms blood cells; ligaments connect bone to bone; tendons connect muscle to bone.</mark>"]] },
+{cat:"systems",title:"7. Muscular System",sub:"Skeletal • cardiac • smooth muscle",sections:[
+["Types",["Skeletal muscle: generally voluntary, striated and attached to the skeleton.","Cardiac muscle: involuntary, striated muscle in the heart.","Smooth muscle: involuntary muscle in many hollow organs and blood vessels."]],
+["Muscle contraction",["A motor neuron signal triggers events that allow actin and myosin to interact.","Calcium and ATP are essential to normal contraction and relaxation.","Muscles generate heat and help maintain posture."]],
+["Major movements",["Flexion decreases a joint angle; extension increases it.","Abduction moves away from the midline; adduction moves toward it.","Agonists produce a movement while antagonists oppose or control it."]],
+["Highlighted exam point","<mark>Actin and myosin interact during contraction; ATP and calcium are essential.</mark>"]] },
+{cat:"systems",title:"8. Nervous System",sub:"Brain • spinal cord • nerves • reflexes",sections:[
+["Divisions",["CNS: brain and spinal cord.","PNS: nerves and ganglia outside the CNS.","Somatic system controls skeletal muscle and carries sensory information; autonomic system regulates many involuntary functions.","Autonomic divisions include sympathetic and parasympathetic branches."]],
+["Neuron structure",["Dendrites receive many signals; the cell body integrates them; the axon conducts impulses away from the cell body.","Synapses allow communication between neurons or with target cells, often using neurotransmitters."]],
+["Brain & spinal cord",["Cerebrum: conscious perception, thought, memory and voluntary movement.","Cerebellum: coordination, balance and motor learning.","Brainstem: vital pathways and functions including respiratory and cardiovascular regulation.","Spinal cord carries signals and mediates many reflexes."]],
+["Reflex arc",["A typical reflex arc includes receptor, sensory neuron, integration centre, motor neuron and effector."]],
+["Highlighted exam point","<mark>CNS = brain and spinal cord; PNS = nerves and ganglia outside the CNS.</mark>"]] },
+{cat:"systems",title:"9. Special Senses",sub:"Vision • hearing • balance • taste • smell",sections:[
+["Vision",["Light passes through cornea and pupil; the lens focuses light onto the retina.","Rods support dim-light vision; cones support colour and detailed vision.","The optic nerve carries visual information to the brain."]],
+["Hearing & balance",["Sound vibrations pass through the outer and middle ear to the cochlea in the inner ear.","Hair cells in the cochlea convert mechanical vibration into neural signals.","Vestibular structures contribute to balance and head-motion sensing."]],
+["Taste and smell",["Receptors detect chemicals and send signals through sensory pathways.","Smell contributes strongly to flavour perception."]],
+["Highlighted exam point","<mark>The retina detects light; the cochlea supports hearing; the vestibular apparatus supports balance.</mark>"]] },
+{cat:"systems",title:"10. Endocrine System",sub:"Hormones • glands • feedback",sections:[
+["Main glands",["Hypothalamus and pituitary coordinate many endocrine functions.","Thyroid regulates metabolic activity; parathyroid glands help regulate calcium.","Adrenal glands produce hormones involved in stress response, blood pressure and salt balance.","Pancreatic islets release insulin and glucagon; ovaries and testes produce sex hormones."]],
+["Hormone action",["Hormones travel in blood or local fluid and act on cells with appropriate receptors.","Hormone release is often controlled by negative feedback."]],
+["Blood glucose",["Insulin generally lowers blood glucose by promoting uptake and storage.","Glucagon generally raises blood glucose by stimulating release/production of glucose by the liver."]],
+["Highlighted exam point","<mark>Insulin lowers blood glucose; glucagon raises it. Hormones act on target cells with suitable receptors.</mark>"]] },
+{cat:"systems",title:"11. Cardiovascular System",sub:"Heart • blood • vessels • circulation",sections:[
+["Heart anatomy",["Four chambers: right and left atria, right and left ventricles.","Tricuspid valve: right atrium to right ventricle; pulmonary valve: right ventricle to pulmonary trunk.","Mitral valve: left atrium to left ventricle; aortic valve: left ventricle to aorta.","The myocardium is cardiac muscle; coronary arteries supply the heart muscle."]],
+["Blood flow pathway",["Body → venae cavae → right atrium → tricuspid valve → right ventricle → pulmonary valve → pulmonary arteries → lungs.","Lungs → pulmonary veins → left atrium → mitral valve → left ventricle → aortic valve → aorta → body."]],
+["Blood & vessels",["Plasma transports dissolved substances; red cells carry oxygen using haemoglobin; white cells support defence; platelets aid clotting.","Arteries carry blood away from the heart; veins carry blood toward the heart; capillaries allow exchange."]],
+["Cardiac cycle & conduction",["Systole is contraction; diastole is relaxation/filling.","The SA node is the normal primary pacemaker; the AV node delays conduction before impulses pass into the ventricular conduction system.","Blood pressure depends on cardiac output and vascular resistance, among other factors."]],
+["Highlighted exam point","<mark>Arteries carry blood away from the heart; veins carry blood toward the heart. Pulmonary arteries carry oxygen-poor blood and pulmonary veins carry oxygen-rich blood.</mark>"]] },
+{cat:"systems",title:"12. Blood & Immunity",sub:"Blood cells • clotting • defence",sections:[
+["Blood components",["Plasma contains water, proteins, electrolytes, nutrients, hormones and wastes.","Red blood cells transport oxygen; white blood cells defend the body; platelets help form plugs during haemostasis."]],
+["Haemostasis",["Vessel constriction, platelet plug formation and coagulation help limit bleeding.","Clotting involves a cascade of factors and formation of fibrin."]],
+["Immune defence",["Innate immunity responds rapidly and includes barriers, phagocytes and inflammation.","Adaptive immunity uses B lymphocytes, antibodies and T lymphocytes; it can develop memory.","Lymphatic organs include lymph nodes, spleen, thymus and tonsils."]],
+["Highlighted exam point","<mark>RBCs transport oxygen; WBCs support defence; platelets contribute to clot formation.</mark>"]] },
+{cat:"systems",title:"13. Respiratory System",sub:"Airway • lungs • ventilation • gas exchange",sections:[
+["Air pathway",["Nose/nasal cavity → pharynx → larynx → trachea → bronchi → bronchioles → alveoli.","The pleura are membranes associated with the lungs and thoracic wall."]],
+["Mechanics of breathing",["During quiet inspiration, the diaphragm contracts and thoracic volume increases, helping air enter the lungs.","Quiet expiration is usually passive as respiratory muscles relax and elastic recoil moves air out."]],
+["Gas exchange & control",["Oxygen and carbon dioxide diffuse across the thin alveolar-capillary membrane down their partial-pressure gradients.","Most oxygen travels bound to haemoglobin; much carbon dioxide is transported as bicarbonate.","Respiratory centres in the brainstem adjust ventilation in response to chemical and neural signals."]],
+["Highlighted exam point","<mark>Gas exchange occurs mainly in alveoli. Oxygen enters blood and carbon dioxide leaves blood there.</mark>"]] },
+{cat:"systems",title:"14. Digestive System",sub:"GI tract • accessory organs • absorption",sections:[
+["Food pathway",["Mouth → pharynx → oesophagus → stomach → small intestine → large intestine → rectum → anus.","Accessory organs: salivary glands, liver, gallbladder and pancreas."]],
+["Digestion",["Mechanical digestion breaks food physically; chemical digestion uses enzymes and other secretions.","Stomach acid helps denature proteins and supports activation of pepsin.","Most nutrient absorption occurs in the small intestine; the large intestine absorbs water and electrolytes and forms stool."]],
+["Accessory organs",["Liver produces bile and processes absorbed nutrients.","Gallbladder stores and concentrates bile.","Pancreas releases digestive enzymes and bicarbonate into the small intestine."]],
+["Highlighted exam point","<mark>Most nutrient absorption occurs in the small intestine; the liver produces bile; the gallbladder stores it.</mark>"]] },
+{cat:"systems",title:"15. Urinary System",sub:"Kidneys • nephron • urine formation",sections:[
+["Structures",["Two kidneys, two ureters, urinary bladder and urethra.","The nephron is the functional unit of the kidney."]],
+["Urine formation",["Glomerular filtration moves water and small solutes from blood into the nephron.","Tubular reabsorption returns needed water and substances to blood.","Tubular secretion moves selected substances from blood into tubular fluid."]],
+["Kidney functions",["Excretes metabolic wastes; regulates water, electrolytes, acid-base balance and contributes to blood pressure regulation.","Produces erythropoietin and activates vitamin D."]],
+["Hormonal control",["ADH increases water reabsorption in the collecting ducts.","Aldosterone increases sodium reabsorption and promotes potassium secretion in the distal nephron."]],
+["Highlighted exam point","<mark>Filtration → reabsorption → secretion are key processes in urine formation.</mark>"]] },
+{cat:"systems",title:"16. Fluid, Electrolyte & Acid–Base Balance",sub:"Water • sodium • potassium • pH",sections:[
+["Fluid balance",["Water enters through drinks, food and metabolism and leaves through urine, stool, sweat and exhaled air.","Kidneys and hormones adjust water and electrolyte excretion to maintain balance."]],
+["Electrolytes",["Sodium is the major extracellular cation; potassium is the major intracellular cation.","Calcium supports bone, muscle contraction, nerve function and clotting.","Disturbances can affect neurological, muscular and cardiac function."]],
+["Acid-base",["The body regulates pH using buffers, ventilation and kidney function.","The lungs regulate carbon dioxide; kidneys regulate hydrogen ion excretion and bicarbonate handling.","Acid-base results must be interpreted in clinical context by trained professionals."]],
+["Highlighted exam point","<mark>Lungs regulate CO₂ rapidly; kidneys help regulate hydrogen ions and bicarbonate over a longer period.</mark>"]] },
+{cat:"systems",title:"17. Lymphatic System",sub:"Lymph • nodes • immune function",sections:[
+["Structures",["Lymphatic capillaries and vessels, lymph nodes, spleen, thymus and tonsils.","Lymph returns excess interstitial fluid to the bloodstream."]],
+["Functions",["Maintains fluid balance, transports absorbed dietary fats from the intestine and supports immune surveillance.","Lymph nodes filter lymph and provide sites for immune-cell activity."]],
+["Highlighted exam point","<mark>The lymphatic system returns excess tissue fluid, transports some dietary fats and supports immune defence.</mark>"]] },
+{cat:"systems",title:"18. Reproductive System",sub:"Male • female • gametes • hormones",sections:[
+["Male structures",["Testes produce sperm and testosterone; ducts transport sperm; accessory glands add seminal fluid.","Sperm production occurs in seminiferous tubules."]],
+["Female structures",["Ovaries produce oocytes and hormones; uterine tubes transport the oocyte; uterus supports pregnancy; vagina connects the uterus to the exterior.","The endometrium changes during the menstrual cycle."]],
+["Reproductive physiology",["FSH and LH regulate reproductive functions; ovarian hormones include oestrogen and progesterone.","Fertilisation usually occurs in a uterine tube; implantation occurs in the endometrium."]],
+["Highlighted exam point","<mark>Ovaries produce oocytes and hormones; testes produce sperm and testosterone.</mark>"]] },
+{cat:"systems",title:"19. Human Development & Genetics",sub:"Fertilisation • growth • inheritance",sections:[
+["Development",["Fertilisation forms a zygote; cell division and differentiation produce specialised tissues and organs.","Embryonic development is a period of major organ formation; prenatal development continues through the fetal period."]],
+["Genetics",["DNA stores genetic information; genes are DNA sequences; chromosomes package DNA.","Genotype refers to genetic makeup; phenotype refers to observable traits shaped by genes and environment."]],
+["Ageing",["Ageing can affect bone density, muscle mass, skin, senses, cardiovascular function and renal reserve; changes vary among individuals."]],
+["Highlighted exam point","<mark>Genes are DNA sequences; chromosomes package DNA; phenotype reflects genes and environmental influences.</mark>"]] },
+{cat:"systems",title:"20. Metabolism, Nutrition & Temperature",sub:"Energy • nutrients • thermoregulation",sections:[
+["Metabolism",["Catabolism breaks down substances and often releases energy; anabolism builds substances and requires energy.","ATP transfers usable energy for many cellular processes."]],
+["Nutrition",["Carbohydrates and fats provide energy; protein supports tissue structure, enzymes and repair.","Vitamins and minerals support body processes; water is essential for transport and temperature regulation.","Nutritional needs vary with age, activity, pregnancy, illness and other factors."]],
+["Temperature regulation",["The hypothalamus helps coordinate temperature regulation.","Sweating and skin vasodilation support heat loss; shivering and vasoconstriction help conserve or generate heat."]],
+["Highlighted exam point","<mark>Catabolism breaks down; anabolism builds. ATP is a major immediate energy carrier in cells.</mark>"]] },
+{cat:"systems",title:"21. Special Topics: Pain, Sleep & Movement",sub:"Body regulation • function",sections:[
+["Pain",["Pain is a personal sensory and emotional experience. Assessment includes location, quality, severity, timing and impact.","Use validated tools when appropriate and reassess response to care."]],
+["Sleep",["Sleep supports memory, immune function, tissue repair and general wellbeing.","Sleep patterns change with age, illness, environment and medicines."]],
+["Movement & posture",["Bones provide levers; joints allow movement; muscles create force; the nervous system coordinates activity.","Safe body mechanics, mobility assessment and fall prevention are important nursing considerations."]],
+["Highlighted exam point","<mark>Assess, document, intervene according to the care plan, and reassess the patient's response.</mark>"]] },
+{cat:"nursing",title:"22. Anatomy & Physiology in Nursing Practice",sub:"Assessment • safety • application",sections:[
+["Why it matters",["Helps identify expected versus abnormal findings.","Supports safe positioning, mobility, hygiene and procedure planning.","Helps nurses understand vital signs, symptoms, fluid balance and medication effects."]],
+["Assessment links",["Cardiovascular: pulse, perfusion, oedema and blood pressure.","Respiratory: rate, effort, oxygenation and breath sounds as trained.","Neurological: level of consciousness, orientation, pupils and movement as appropriate.","Urinary: intake, output and changes in urine; interpret in context.","Skin: colour, temperature, moisture, integrity and pressure-injury risk."]],
+["Safe practice",["Use correct patient identification and follow infection-prevention measures.","Explain care, respect privacy and obtain consent as required.","Escalate deterioration promptly and work within training, scope and local policy."]],
+["Highlighted exam point","<mark>Know normal structure and function so you can recognise changes, communicate clearly and provide safer care.</mark>"]] }
+];
+let active="all";
+const notes=document.getElementById("notes"), search=document.getElementById("search"), filter=document.getElementById("filter");
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function render(){let q=search.value.toLowerCase().trim();let arr=modules.filter(m=>(active==="all"||m.cat===active)&&(filter.value==="all"||m.cat===filter.value)&&JSON.stringify(m).toLowerCase().includes(q));document.getElementById("count").textContent=`${arr.length} note modules • Important lines are highlighted`;notes.innerHTML="";
+if(!arr.length){notes.innerHTML='<div class="empty">No matching topic. Try another keyword.</div>';return}
+arr.forEach((m,i)=>{let el=document.createElement("article");el.className="note";el.innerHTML=`<span class="tag">${m.cat==="basics"?"FOUNDATIONS":m.cat==="cells"?"CELLS & TISSUES":m.cat==="nursing"?"NURSING APPLICATION":"BODY SYSTEMS"}</span><h2>${esc(m.title)}</h2><p><strong>${esc(m.sub)}</strong></p>${m.sections.map(([h,c])=>`<h3>${esc(h)}</h3>${Array.isArray(c)?`<ul>${c.map(v=>`<li>${v.includes("<mark>")?v:esc(v)}</li>`).join("")}</ul>`:`<p>${c.includes("<mark>")?c:esc(c)}</p>`}`).join("")}<div class="actions"><button class="btn" data-read="${i}">🔊 Read this topic</button><button class="btn secondary" data-quiz="${i}">Revise key point</button></div>`;
+notes.appendChild(el);el.querySelector("[data-read]").onclick=()=>speak(`${m.title}. ${m.sections.map(([h,c])=>h+". "+(Array.isArray(c)?c.join(". "):c.replace(/<[^>]*>/g,""))).join(". ")}`);el.querySelector("[data-quiz]").onclick=()=>{let key=m.sections.find(([h,c])=>h.toLowerCase().includes("highlighted"));alert(key?key[1].replace(/<[^>]*>/g,""):"Revise the topic headings and definitions above.")}});
+}
+function speak(t){if(!("speechSynthesis"in window)){alert("Voice reading is not supported by this browser.");return}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang="en-US";speechSynthesis.speak(u)}
+document.querySelectorAll(".year").forEach(b=>b.onclick=()=>{active=b.dataset.year;filter.value="all";document.querySelectorAll(".year").forEach(x=>x.classList.toggle("active",x===b));render()});
+filter.onchange=()=>{active="all";document.querySelectorAll(".year").forEach(x=>x.classList.toggle("active",x.dataset.year==="all"));render()};
+search.oninput=render;
+document.getElementById("openQuiz").onclick=()=>{document.getElementById("quiz").classList.add("show");document.getElementById("quiz").scrollIntoView({behavior:"smooth"})};
+document.getElementById("hideQuiz").onclick=()=>document.getElementById("quiz").classList.remove("show");
+document.getElementById("readHighlights").onclick=()=>speak("Anatomy is structure. Physiology is function. The cell is the basic structural and functional unit of life. Homeostasis maintains a relatively stable internal environment. Negative feedback opposes a change. The SA node is the normal primary pacemaker of the heart. Gas exchange occurs mainly in the alveoli. Most nutrient absorption occurs in the small intestine. Filtration, reabsorption and secretion are key processes in urine formation.");
+document.getElementById("quizForm").onsubmit=e=>{e.preventDefault();let f=new FormData(e.target),score=0;["b","b","a","b","a"].forEach((a,i)=>{if(f.get("q"+(i+1))===a)score++});document.getElementById("score").textContent=`Your score: ${score}/5. ${score===5?"Excellent!": "Review the highlighted points and try again."}`};
+render();
+</script>
+</body></html>
