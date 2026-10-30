@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1769aa">
+<title>NurseStudy AI | B.Sc. Nursing Learning Center</title>
+<style>
+:root{--blue:#1769aa;--navy:#12314a;--pale:#eef7ff;--ink:#183247;--muted:#5d7182;--line:#d9e6ef;--white:#fff;--green:#12805c}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:#f5f9fc;line-height:1.55}
+header{background:linear-gradient(135deg,#12314a,#1769aa);color:white;padding:24px 16px 28px}
+.wrap{width:min(1050px,100% - 28px);margin:auto}
+.topline{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.brand{font-weight:800;letter-spacing:.2px}.pill{border:1px solid #ffffff70;border-radius:99px;padding:5px 10px;font-size:.82rem}
+h1{font-size:clamp(1.8rem,5vw,2.6rem);line-height:1.15;margin:20px 0 8px}
+header p{margin:0;max-width:700px;color:#e5f3ff}
+main{padding:20px 0 42px}.notice{background:#fff8e7;border:1px solid #f1d99c;padding:12px 14px;border-radius:12px;margin-bottom:18px;font-size:.92rem}
+.tools{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:18px}
+input,select,button{font:inherit}input,select{width:100%;padding:12px;border:1px solid #c9d9e5;border-radius:10px;background:white;color:var(--ink)}
+.years{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0 20px}
+.yearbtn{background:white;color:var(--blue);border:1px solid #c9d9e5;border-radius:12px;padding:12px 8px;font-weight:750;cursor:pointer}
+.yearbtn.active{background:var(--blue);border-color:var(--blue);color:white}
+.sectionhead{display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+h2{margin:8px 0 4px;font-size:1.35rem}.muted{color:var(--muted);font-size:.93rem}
+.cards{display:grid;grid-template-columns:1fr;gap:12px;margin-top:14px}
+.card{background:white;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 3px 12px #173c5610}
+.card h3{margin:0 0 7px;font-size:1.05rem}.tag{display:inline-block;background:var(--pale);color:var(--blue);border-radius:99px;padding:3px 8px;font-size:.76rem;font-weight:700;margin-bottom:8px}
+.topics{padding-left:19px;margin:10px 0}.topics li{margin:5px 0}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.btn{border:0;border-radius:9px;padding:10px 12px;cursor:pointer;font-weight:700;background:var(--blue);color:white}
+.btn.secondary{background:#e8f2fa;color:var(--blue)}.btn.green{background:var(--green)}
+.empty{background:white;border:1px dashed #b8cbd9;border-radius:12px;padding:20px;text-align:center;color:var(--muted)}
+.panel{display:none;background:white;border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:18px}.panel.show{display:block}
+.q{padding:12px 0;border-bottom:1px solid var(--line)}.q:last-child{border-bottom:0}.q label{display:block;margin:6px 0}
+footer{text-align:center;padding:22px 12px;color:var(--muted);font-size:.85rem}
+@media(min-width:640px){.tools{grid-template-columns:2fr 1fr}.years{grid-template-columns:repeat(4,minmax(0,1fr))}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<header>
+ <div class="wrap">
+  <div class="topline"><div class="brand">🩺 NurseStudy AI</div><span class="pill">B.Sc. Nursing • Learning Center</span></div>
+  <h1>Learn nursing, one topic at a time.</h1>
+  <p>Explore year-wise subjects, review key concepts, practise a short quiz, or listen to study notes aloud.</p>
+ </div>
+</header>
+<main class="wrap">
+ <div class="notice"><strong>Study reminder:</strong> This is an educational study aid. Follow your college syllabus, current clinical guidelines, and instructor supervision for practical procedures.</div>
+ <div class="tools">
+  <input id="search" type="search" placeholder="Search subjects or topics…" aria-label="Search subjects or topics">
+  <select id="yearFilter" aria-label="Filter by year"><option value="all">All years</option><option value="1">1st Year</option><option value="2">2nd Year</option><option value="3">3rd Year</option><option value="4">4th Year</option></select>
+ </div>
+ <div class="sectionhead"><div><h2>Choose your year</h2><div class="muted">Select a year to filter the learning library.</div></div></div>
+ <div class="years" id="yearButtons">
+  <button class="yearbtn active" data-year="all">All Years</button><button class="yearbtn" data-year="1">1st Year</button><button class="yearbtn" data-year="2">2nd Year</button><button class="yearbtn" data-year="3">3rd Year</button><button class="yearbtn" data-year="4">4th Year</button>
+ </div>
+ <div class="sectionhead"><div><h2 id="resultsTitle">Learning library</h2><div class="muted" id="count"></div></div><button class="btn secondary" id="quizTop">Take a quick quiz</button></div>
+ <div class="cards" id="cards"></div>
+ <section class="panel" id="studyPanel" aria-live="polite"></section>
+ <section class="panel" id="quizPanel">
+  <h2>Quick nursing quiz</h2><p class="muted">Choose the best answer for each question, then check your score.</p>
+  <form id="quizForm">
+   <div class="q"><strong>1. What is the normal adult resting pulse range commonly taught in basic nursing?</strong><label><input type="radio" name="q1" value="a"> 20–40 beats/min</label><label><input type="radio" name="q1" value="b"> 60–100 beats/min</label><label><input type="radio" name="q1" value="c"> 120–160 beats/min</label></div>
+   <div class="q"><strong>2. Which practice is central to preventing infection transmission?</strong><label><input type="radio" name="q2" value="a"> Hand hygiene</label><label><input type="radio" name="q2" value="b"> Reusing disposable gloves</label><label><input type="radio" name="q2" value="c"> Skipping equipment cleaning</label></div>
+   <div class="q"><strong>3. Before administering a medication, a nurse should first:</strong><label><input type="radio" name="q3" value="a"> Guess the dose</label><label><input type="radio" name="q3" value="b"> Verify the order and patient using required checks</label><label><input type="radio" name="q3" value="c"> Ask another patient</label></div>
+   <div class="actions"><button class="btn" type="submit">Check answers</button><button class="btn secondary" type="button" id="closeQuiz">Close quiz</button></div>
+  </form><p id="quizResult" role="status"></p>
+ </section>
+</main>
+<footer>Made for nursing learners • NurseStudy AI</footer>
+<script>
+const subjects = [
+{y:1,s:"Anatomy & Physiology",t:["Cells and tissues","Skeletal and muscular systems","Heart and circulation","Respiratory system","Digestive and urinary systems"],d:"Study body structures and how major systems function.",n:"Anatomy describes body structures; physiology explains how they work. Link each structure with its function and revise diagrams regularly."},
+{y:1,s:"Fundamentals of Nursing",t:["Nursing process","Vital signs","Patient safety","Personal hygiene and comfort","Documentation basics"],d:"Build safe, compassionate bedside-care foundations.",n:"Use the nursing process: assessment, nursing diagnosis, planning, implementation and evaluation. Follow local policy and document care accurately."},
+{y:1,s:"Nutrition & Biochemistry",t:["Macronutrients and micronutrients","Balanced diet","Fluid and electrolyte basics","Nutrition across the lifespan"],d:"Connect nutrients, metabolism, hydration and health.",n:"A balanced diet supplies energy, protein, fats, carbohydrates, vitamins, minerals and water. Individual needs vary by age, condition and clinical plan."},
+{y:1,s:"Psychology & Sociology",t:["Human development","Learning and motivation","Communication","Family and community"],d:"Understand behaviour, relationships and social factors in health.",n:"Therapeutic communication includes active listening, empathy, clear language and respect for privacy, culture and patient choices."},
+{y:2,s:"Medical-Surgical Nursing I",t:["Nursing assessment","Perioperative care","Respiratory disorders","Cardiovascular disorders","Pain assessment"],d:"Review assessment and nursing care for common adult health conditions.",n:"Use a systematic assessment, recognise changes from baseline, report deterioration promptly and follow evidence-based care plans."},
+{y:2,s:"Microbiology & Infection Control",t:["Microorganisms","Chain of infection","Standard precautions","Sterilisation and disinfection","Specimen handling"],d:"Learn how infection spreads and how healthcare teams prevent it.",n:"Standard precautions apply to all patients. Hand hygiene, appropriate PPE, safe sharps handling and correct cleaning reduce infection risks."},
+{y:2,s:"Pharmacology",t:["Medication safety","Drug classifications","Routes of administration","Adverse effects","Medication documentation"],d:"Learn medication principles and safe administration checks.",n:"Verify the prescription, patient identity, allergies, medicine, dose, route, timing and required monitoring according to institutional policy. Never administer an uncertain medication."},
+{y:2,s:"Pathology & Genetics",t:["Cell injury","Inflammation","Healing","Inheritance basics","Common diagnostic tests"],d:"Understand disease mechanisms and their clinical significance.",n:"Pathology studies disease processes. Connect causes and mechanisms with signs, symptoms, investigations and treatment principles."},
+{y:3,s:"Child Health Nursing",t:["Growth and development","Newborn assessment","Immunisation principles","Paediatric assessment","Family-centred care"],d:"Explore nursing care for infants, children and families.",n:"Assess children using age-appropriate approaches. Growth, vital-sign ranges, communication and medication calculations can differ from adults."},
+{y:3,s:"Mental Health Nursing",t:["Mental status examination","Therapeutic relationship","Anxiety and mood disorders","Crisis support","Patient rights"],d:"Practise respectful, recovery-oriented mental health care.",n:"Maintain safety, dignity and confidentiality. Listen without judgement and escalate urgent risk or severe changes to the clinical team."},
+{y:3,s:"Community Health Nursing",t:["Health promotion","Epidemiology basics","Screening","Immunisation programmes","Home visits"],d:"Connect public health principles with community nursing.",n:"Community assessment identifies health needs, resources and risks. Prevention includes education, screening, vaccination and referral through local services."},
+{y:3,s:"Midwifery & Obstetric Nursing",t:["Antenatal care","Maternal assessment","Labour stages","Postnatal care","Newborn care"],d:"Review maternal and newborn care concepts.",n:"Recognise warning signs and seek urgent skilled assessment when indicated. Clinical procedures must follow current local protocols and supervised training."},
+{y:4,s:"Medical-Surgical Nursing II",t:["Neurological assessment","Endocrine disorders","Renal disorders","Emergency nursing principles","Rehabilitation"],d:"Integrate assessment, prioritisation and care planning for complex conditions.",n:"Prioritise airway, breathing and circulation when appropriate, reassess after interventions and communicate significant changes promptly."},
+{y:4,s:"Nursing Research & Statistics",t:["Research questions","Study designs","Sampling","Data interpretation","Evidence-based practice"],d:"Build skills to read and apply nursing research.",n:"Assess study methods, sample, bias, results and limitations before applying findings to practice. Statistical association does not automatically prove causation."},
+{y:4,s:"Nursing Management & Leadership",t:["Delegation","Team communication","Quality improvement","Patient safety","Ethics and accountability"],d:"Prepare for coordination, leadership and professional practice.",n:"Delegate according to competence, scope and policy. The nurse remains accountable for appropriate decisions, communication and follow-up."},
+{y:4,s:"Critical Care & Emergency Concepts",t:["Recognising deterioration","Basic life support overview","Monitoring principles","Triage concepts","Team handover"],d:"Review recognition, escalation and teamwork in urgent care.",n:"For a real emergency, activate the local emergency response and follow current certified training. This page is not a substitute for practical instruction."}
+];
+let selectedYear="all";
+const cards=document.getElementById("cards"), search=document.getElementById("search"), yearFilter=document.getElementById("yearFilter");
+function render(){
+ const q=search.value.trim().toLowerCase();
+ const filtered=subjects.filter(x=>(selectedYear==="all"||String(x.y)===selectedYear)&&(`${x.s} ${x.d} ${x.t.join(" ")}`).toLowerCase().includes(q));
+ document.getElementById("count").textContent=`${filtered.length} subject${filtered.length===1?"":"s"} found`;
+ cards.innerHTML="";
+ if(!filtered.length){cards.innerHTML='<div class="empty">No matching subject found. Try a different keyword or year.</div>';return}
+ filtered.forEach(x=>{const card=document.createElement("article");card.className="card";
+ card.innerHTML=`<span class="tag">${["","1st","2nd","3rd","4th"][x.y]} Year</span><h3>${x.s}</h3><p class="muted">${x.d}</p><strong>Topics to revise</strong><ul class="topics">${x.t.map(t=>`<li>${t}</li>`).join("")}</ul><div class="actions"><button class="btn" data-study="${x.s}">Open notes</button><button class="btn secondary" data-speak="${x.s}">🔊 Read aloud</button></div>`;
+ cards.appendChild(card);
+ card.querySelector("[data-study]").addEventListener("click",()=>openNotes(x));
+ card.querySelector("[data-speak]").addEventListener("click",()=>speak(`${x.s}. ${x.d} ${x.n} Topics: ${x.t.join(", ")}.`));
+ });
+}
+function openNotes(x){
+ const p=document.getElementById("studyPanel");p.classList.add("show");
+ p.innerHTML=`<span class="tag">${["","1st","2nd","3rd","4th"][x.y]} Year</span><h2>${x.s}</h2><p>${x.n}</p><h3>Revision checklist</h3><ul class="topics">${x.t.map(t=>`<li>${t}</li>`).join("")}</ul><p class="muted">Use your prescribed textbook and college syllabus for detailed notes. Ask your instructor to clarify clinical procedures before practising them.</p><div class="actions"><button class="btn" id="readNotes">🔊 Listen to notes</button><button class="btn secondary" id="hideNotes">Close notes</button></div>`;
+ document.getElementById("readNotes").onclick=()=>speak(`${x.s}. ${x.n} Topics to revise: ${x.t.join(", ")}.`);
+ document.getElementById("hideNotes").onclick=()=>p.classList.remove("show");
+ p.scrollIntoView({behavior:"smooth",block:"start"});
+}
+function speak(text){if(!("speechSynthesis" in window)){alert("Voice reading is not supported in this browser.");return}window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="en-US";window.speechSynthesis.speak(u)}
+document.querySelectorAll(".yearbtn").forEach(b=>b.addEventListener("click",()=>{selectedYear=b.dataset.year;yearFilter.value=selectedYear;document.querySelectorAll(".yearbtn").forEach(a=>a.classList.toggle("active",a===b));render()}));
+yearFilter.addEventListener("change",()=>{selectedYear=yearFilter.value;document.querySelectorAll(".yearbtn").forEach(b=>b.classList.toggle("active",b.dataset.year===selectedYear));render()});
+search.addEventListener("input",render);
+function showQuiz(){document.getElementById("quizPanel").classList.add("show");document.getElementById("quizPanel").scrollIntoView({behavior:"smooth",block:"start"})}
+document.getElementById("quizTop").addEventListener("click",showQuiz);
+document.getElementById("closeQuiz").addEventListener("click",()=>document.getElementById("quizPanel").classList.remove("show"));
+document.getElementById("quizForm").addEventListener("submit",e=>{e.preventDefault();const f=new FormData(e.target);let score=0;if(f.get("q1")==="b")score++;if(f.get("q2")==="a")score++;if(f.get("q3")==="b")score++;document.getElementById("quizResult").textContent=`Your score: ${score}/3. ${score===3?"Excellent work!":"Review the topics and try again."}`});
+render();
+</script>
+</body>
+</html>
