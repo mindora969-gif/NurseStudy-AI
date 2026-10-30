@@ -11,6 +11,11 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: "1mb" }));
 app.use(express.static("public"));
+app.get("/", (_req, res) => {
+  res.sendFile("index.html", {
+    root: process.cwd()
+  });
+});
 
 function makePlan(topic, days = 7) {
   const t = topic.trim() || "Nursing";
